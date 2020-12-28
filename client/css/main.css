@@ -1,0 +1,127 @@
+html, body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-image:
+    url("/public/backgroud4.jpg");
+    box-sizing: border-box;
+}
+
+
+/* main contanier */
+
+.main-container{
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column; /* 열을 기준으로 정렬 */
+    align-items: center; /*  수직기준으로 정렬 */
+    justify-content: center;
+}
+
+.main-clock-container{
+    font-size: 60px;
+    border-radius: 10px;
+    color: aliceblue;
+}
+
+.search-input{
+    width:  500px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-btn{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: none;
+}
+
+/* short-cut-contanier */
+
+.main-shortcut-container{
+    color: aliceblue;
+    border-radius: 20px;
+    width: 70%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin: 10px 0;
+}
+
+.shortcut-wrapper{
+    color: black;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.tile{
+    color: rgb(70, 71, 73);
+    background-color: rgba(215, 255, 246, 0.603);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.tile div{
+    position: relative;
+    top : 8px;
+    color: rgb(255, 255, 255);
+}
+
+
+
+/* todo container */
+
+.main-todo-container{
+    color: rgb(250, 246, 246);
+    background-color: rgba(215, 255, 246, 0.603);
+    border-radius: 20px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todo-wrapper{
+    width: 80%;
+    list-style-type: none;
+    padding: 0;
+}
+
+.todo-wrapper .todo-list-element{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 20px 0px;    
+}
+
+.todo-content{
+    color: black;
+    margin: 0 10px;
+}
+
+#todo-check, #todo-delete{
+    display: flex;
+    align-items: center;
+}
+
+
+#add-todo-input{
+    width:  300px;
+    height: 25px;
+    border: none;
+    outline: none;
+}
+
+.add-todo-btn{
+    height: 25px;
+}

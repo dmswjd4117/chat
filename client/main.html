@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link rel="stylesheet", href="/public/main.css">
+    <link rel="stylesheet", href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU", crossorigin="anonymous">
+</head>
+<body>
+    <div id="user-box">
+
+    </div>
+    <div class="main-container"> 
+        <h1 class="main-clock-container" id="clock-container">
+        </h1>
+
+        <form class="search-input-form" action="https://www.google.com/search">
+            <input name="q" class="search-input" type="search" placeholder="   Google 검색" >
+            <button class="search-btn fas fa-search"></button>
+        </form>
+
+
+        <div class="main-shortcut-container">
+            <h3>SHORTCUT</h3>
+            <div class="shortcut-wrapper">
+                <a class="tile" href="https://aws.amazon.com/ko/free/?trk=ps_a134p000003yHYoAAM&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=Google&sc_category=Core-Main&sc_country=KR&sc_geo=APAC&sc_outcome=acq&sc_detail=%2Baws&sc_content=Brand_Core_aws_bmm&sc_segment=444218216048&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Core-Main|Core|KR|EN|Text&s_kwcid=AL!4422!3!444218216048!b!!g!!%2Baws&ef_id=Cj0KCQiA_qD_BRDiARIsANjZ2LCidhNPeK3BAnAkpM1ILZn5jREOehIGu8BxxbAc_RdB32RtQJoT4gUaApceEALw_wcB:G:s&s_kwcid=AL!4422!3!444218216048!b!!g!!%2Baws" target="_blank">
+                    <div class="fab fa-aws"></div>
+                </a>
+                <a class="tile" href="https://www.acmicpc.net/" target="_blank">
+                    <div class="fas fa-code"></div>
+                </a>
+                <a id="short-cut-add" class="tile"  target="_blank">
+                    <div class="fas fa-link"></div>
+                </a>
+                <a class="tile" href="https://stackoverflow.com/" target="_blank">
+                  <div class="fab fa-stack-overflow"></div>
+                </a>
+                <a class="tile" href="https://www.google.com/" target="_blank">
+                  <div class="fab fa-google"></div>
+                </a>
+            </div>
+            <div id="shortcut-add-from">
+
+            </div>
+        </div>
+
+        <div class="main-todo-container">
+
+            <h3 class="addTodo">CHECK LIST</h3>
+
+            <form id="add-todo" >
+                <input id="add-todo-input" type="text" placeholder="할일 추가" required>
+            </form>
+
+            <ul class="todo-wrapper" id = "todo-wrapper">
+                <li class="todo-list-element"> 
+                    <i id="todo-check" class="far fa-check-circle"></i>
+                    <div class="todo-content">
+                        블라블라블라2블라블라블라2블라블라블라2
+                        블라블라블라2블라블라블라2블라블라블라2
+                    </div>
+                    <i id="todo-delete" class="fas fa-trash-alt"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="/public/main.js"></script>
+</body>
+</html>
