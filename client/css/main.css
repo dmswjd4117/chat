@@ -78,10 +78,10 @@ html, body{
 }
 
 
-
 /* todo container */
 
 .main-todo-container{
+    margin-top: 100px;
     color: rgb(250, 246, 246);
     background-color: rgba(215, 255, 246, 0.603);
     border-radius: 20px;
@@ -107,6 +107,8 @@ html, body{
 .todo-content{
     color: black;
     margin: 0 10px;
+    width: 70%; 
+    word-wrap:break-word;
 }
 
 #todo-check, #todo-delete{
@@ -124,4 +126,10 @@ html, body{
 
 .add-todo-btn{
     height: 25px;
+}
+
+#todo-delete:hover{
+    color: pink;
+    transform: scale(1.2);
+    transition: 0.5s;
 }
