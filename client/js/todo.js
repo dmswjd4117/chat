@@ -7,7 +7,6 @@ const TODO_LIST = "todos";
 let toDoList = []
 
 function deleteToDo(event) {
-    const node = event.target;
     const parentNode = event.target.parentNode;
     todoWrapper.removeChild(parentNode);
     const cleanTodos = toDoList.filter(function(todo) {

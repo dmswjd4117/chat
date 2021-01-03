@@ -22,16 +22,28 @@ function loginHandler() {
 
 if(userBox){
     if(isitLoginied){
-        userBox.innerHTML = `
-            <button onclick="logoutHandler()"> 로그아웃 </button>
-            <div id="user-greeting">
-                hello user!
-            </div>`
+        const button = document.createElement("button")
+        button.addEventListener("click",logoutHandler);
+        userBox.appendChild(button)
     }
     else{
+        const registerButton = document.createElement("button")
+        registerButton.innerText = "회원가입"
+        registerButton.addEventListener("click",registerHandler);
+
+        const loginButton = document.createElement("button")
+        loginButton.innerText = "로그인"
+        loginButton.addEventListener("click",loginHandler);
+
+        userBox.appendChild(registerButton)
+        userBox.appendChild(loginButton)
+    }
+}
+
+
+/*
         const newLocal = `
             <button onclick="registerHandler()"> 회원가입 </button>
             <button onclick="loginHandler()"> 로그인 </button>`
         userBox.innerHTML = newLocal
-    }
-}
+*/

@@ -1,7 +1,11 @@
-const PORT = 1000;
-const express = require("express");
-const bodyParser = require('body-parser');
-const morgan = require("morgan");
+import express from "express";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import dotenv from "dotenv";
+import "./db";
+
+dotenv.config();
+
 const app = express();
 
 
@@ -16,6 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/public', express.static('client/image'));
 app.use('/public', express.static('client/css'));
 app.use('/public', express.static('client/js'));
+
+
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, ()=>{
     console.log(`Example app listening at http://localhost:${PORT}`)

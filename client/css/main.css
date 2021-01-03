@@ -3,7 +3,7 @@ html, body{
     height: 100%;
     width: 100%;
     background-image:
-    url("/public/backgroud4.jpg");
+    url("/public/backgroud2.jpg");
     box-sizing: border-box;
 }
 
@@ -129,7 +129,7 @@ html, body{
 }
 
 #todo-delete:hover{
-    color: pink;
-    transform: scale(1.2);
+    color: rgb(255, 21, 60);
+    transform: scale(1.4);
     transition: 0.5s;
 }
