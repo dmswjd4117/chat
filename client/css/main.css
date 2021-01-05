@@ -2,8 +2,11 @@ html, body{
     margin: 0;
     height: 100%;
     width: 100%;
+    /*
     background-image:
-    url("/public/backgroud2.jpg");
+    url("/public/backgroud4.jpg");
+    */
+    background-color: rgb(250, 190, 220);
     box-sizing: border-box;
 }
 
@@ -11,7 +14,7 @@ html, body{
 /* main contanier */
 
 .main-container{
-    color: rgb(0, 0, 0);
+    color: rgb(255, 213, 213);
     display: flex;
     flex-direction: column; /* 열을 기준으로 정렬 */
     align-items: center; /*  수직기준으로 정렬 */
@@ -21,7 +24,7 @@ html, body{
 .main-clock-container{
     font-size: 60px;
     border-radius: 10px;
-    color: aliceblue;
+    color :rgb(129, 131, 134);
 }
 
 .search-input{
@@ -42,7 +45,7 @@ html, body{
 /* short-cut-contanier */
 
 .main-shortcut-container{
-    color: aliceblue;
+    color :rgb(129, 131, 134);
     border-radius: 20px;
     width: 70%;
     text-align: center;
@@ -54,7 +57,7 @@ html, body{
 }
 
 .shortcut-wrapper{
-    color: black;
+    color: rgb(255, 213, 213);
     width: 70%;
     display: flex;
     flex-wrap: wrap;
@@ -62,8 +65,7 @@ html, body{
 }
 
 .tile{
-    color: rgb(70, 71, 73);
-    background-color: rgba(215, 255, 246, 0.603);
+    background-color:  rgb(255, 213, 213);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -81,9 +83,9 @@ html, body{
 /* todo container */
 
 .main-todo-container{
+    color :rgb(129, 131, 134);
     margin-top: 100px;
-    color: rgb(250, 246, 246);
-    background-color: rgba(215, 255, 246, 0.603);
+    background-color: rgb(255, 213, 213);
     border-radius: 20px;
     width: 70%;
     display: flex;
@@ -105,7 +107,7 @@ html, body{
 }
 
 .todo-content{
-    color: black;
+    color :rgb(129, 131, 134);
     margin: 0 10px;
     width: 70%; 
     word-wrap:break-word;
@@ -129,7 +131,7 @@ html, body{
 }
 
 #todo-delete:hover{
-    color: rgb(255, 21, 60);
+    color: rgb(224, 133, 148);
     transform: scale(1.4);
     transition: 0.5s;
 }
