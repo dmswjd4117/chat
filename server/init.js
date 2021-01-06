@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import session from "express-session";
 import passport from "passport";
+import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
 import { localsMiddleware }  from "./middlewares";
 import "./db";
 import "./models/User";
@@ -14,8 +16,14 @@ dotenv.config();
 
 const app = express();
 
+const mongoStore = MongoStore(session);
+
 app.set('view engine', 'pug')
 app.set('views', 'client')
+
+app.use('/public', express.static('client/image'));
+app.use('/public', express.static('client/css'));
+app.use('/public', express.static('client/js'));
 
 app.use(morgan("dev"));
 app.use(bodyParser.json()); //json으로 온 요청을 해석
@@ -26,7 +34,9 @@ app.use(
   session({
     secret: process.env.COOKIE_SECRET, 
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new  mongoStore({ mongooseConnection: mongoose.connection })
+    // 서버를 끄고 켜도 세션정보가 유지될수 있게 몽고디비에 세션정보들을 저장해준다.
   })
 );
 
@@ -35,14 +45,10 @@ app.use(
 서버에서 세션을 통해 정보를 관리한다.
 */
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(localsMiddleware);
 
-app.use('/public', express.static('client/image'));
-app.use('/public', express.static('client/css'));
-app.use('/public', express.static('client/js'));
 
 
 const PORT = process.env.PORT || 8080;

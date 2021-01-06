@@ -49,3 +49,5 @@ arr.reduce((p, c)=>{
 })
 
 console.log(arr)
+
+

@@ -8,8 +8,22 @@
     <link rel="stylesheet", href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU", crossorigin="anonymous">
 </head>
 <body>
-    <div id="user-box">
-    </div>
+    if !user
+        div(id="user-box")
+            button 
+                a(href="/user/login") 로그인
+            button 
+                a(href="/user/register") 회원가입
+            button 
+                a(href="/user/git/login") 깃허브 로그인
+            button 
+                a(href="/user/git/register") 깃허브 회원가입
+
+    else 
+        div(id="user-box")
+            button 
+                a(href="/user/logout") 로그아웃
+
     <div class="main-container"> 
         <h1 class="main-clock-container" id="clock-container">
         </h1>

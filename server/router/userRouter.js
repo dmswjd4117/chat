@@ -1,16 +1,16 @@
 import passport from "passport";
 import express from "express";
 import User from "../models/User";
-import { localsMiddleware } from "../middlewares";
+import { localsMiddleware, accessPrivate, accessPublic } from "../middlewares";
 
 const userRouter = express.Router();
 
 
-userRouter.get("/login", (req, res)=>{
+userRouter.get("/login", accessPublic, (req, res)=>{
     res.render('login')
 })
 
-userRouter.post("/login",
+userRouter.post("/login", accessPublic, 
     passport.authenticate('local'),
         localsMiddleware,
         function(req, res) {
@@ -18,12 +18,11 @@ userRouter.post("/login",
     }
 )
 
-
-userRouter.get("/register", (req, res)=>{
+userRouter.get("/register", accessPublic, (req, res)=>{
     res.render('register')
 })
 
-userRouter.post("/register", (req, res)=>{
+userRouter.post("/register", accessPublic, (req, res)=>{
     const { name, email, password, confirmPassword } = req.body;
 
     if(password != confirmPassword){
@@ -53,5 +52,25 @@ userRouter.post("/register", (req, res)=>{
 
 })
 
+userRouter.get("/git/login", passport.authenticate("github"))
+
+userRouter.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+});
+
+userRouter.get("/logout", accessPrivate,  (req,res)=>{
+    req.logout();
+    console.log("???")
+    return res.status(400).redirect("/");
+})
+
+userRouter.get("/auth", (req, res)=>{
+    if(req.user){
+        return res.json({ login : true })
+    }
+    return res.json({ login : false })
+})
 
 module.exports = userRouter;
