@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/public/chatMain.css")
+    body
+        div(class="chat-conainer")
+            header(class="char-header")
+                h1 TAHC
+                a(href="/chat/main" class="button") 채팅종료
+            
+            div(class="chat-main")
+                div(class="chat-sidebar")
+                    h3 room
+                    h2(id="room-name") dmswjd
+                    h3 users
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                    h2(id="room-users") dmswjd
+                div(class="chat-messages")
+            div(class="chat-form-container")
+                form(id="chat-form")
+                    input(id="msg" 
+                    type="text" 
+                    placeholder="message" 
+                    required)
+
+        script( src="/socket.io/socket.io.js")
+        script( src="/public/chat.js")

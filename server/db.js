@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+mongoose.Promise = global.Promise;
+
 mongoose.connect(
     process.env.MONGO_URL,
     {
@@ -11,12 +13,5 @@ mongoose.connect(
         useUnifiedTopology: true,
     }
 )
-
-const db = mongoose.connection;
-
-db.once("open", ()=>{
-    console.log("DB IS CONNECTED ✔️")
-})
-db.on("error", ()=>{
-    console.log("DB ERROR ⚠️")
-})
+.then(()=> console.log("mongodb is connected ✔️"))
+.catch((error) => console.error(error))
