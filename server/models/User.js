@@ -6,14 +6,18 @@ const UserSchema = new mongoose.Schema({
     email : String,
     avataUrl : String,
     githubId : Number,
+    chatRooms : {
+        type : String,
+        ref : "chatroom"
+    },
+    chats : [{
+        type : String,
+        ref : "message"
+    }]
 });
 
 UserSchema.plugin(passportLocalMongoose, {usernameField : "email"})
 
-const model = mongoose.model("User", UserSchema);
+const model = mongoose.model("user", UserSchema);
 
 export default model;
-
-/*
-
-*/

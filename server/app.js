@@ -9,23 +9,21 @@ import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
-import { localsMiddleware }  from "./middlewares";
+import { localsMiddleware  , accessPrivate }  from "./middlewares";
 import "./db";
 import "./models/User";
 import "./paassport";
-
 dotenv.config();
 
-const mongoStore = MongoStore(session);
+
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
+const mongoStore = MongoStore(session);
 
 app.set('view engine', 'pug')
 app.set('views', 'client')
 
-app.use('/public', express.static('client/image'));
-app.use('/public', express.static('client/css'));
+app.use('/public', express.static('client/image')); 
+app.use('/public', express.static('client//css'));
 app.use('/public', express.static('client/js'));
 
 app.use(morgan("dev"));
@@ -55,27 +53,29 @@ app.use(localsMiddleware);
 
 const userRouter = require("./router/userRouter");
 
-app.use("/user", userRouter)
+
 
 app.get("/", async(req,res)=>{
     res.render("main.pug")
-    //res.sendFile(path.join(process.cwd()+ "/client/main.html"))
 })
 
-app.get("/chat/main", (req, res)=>{
-  res.render("chatMain.pug")
-})
+app.use("/user", userRouter)
 
-app.get("/chat", (req, res)=>{
+app.get("/chat/:id", accessPrivate, (req, res)=>{
+    
     res.render("chat.pug")
 })
-
 
 
 // err
 app.use((req, res, next)=>{
     res.status(404).send("NOT FOUND");
 })
+
+ 
+const server = http.createServer(app);
+// socket io 서버가 http서버에 응답하고 있따 .. ?
+const io = socketio(server);
 
 
 module.exports = { io , server}

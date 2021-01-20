@@ -1,9 +1,23 @@
 import { server } from "./app";
 import "./socket"
-import Comment from "./models/Comment";
-import User from "./models/User";
+  
+
+
+const PORT = process.env.PORT || 8080;
+
+server.listen(PORT, ()=>{
+  console.log(`Example app listening at http://localhost:${PORT}`)
+})
+
+
 
 /*
+
+import message from "./models/message";
+import User from "./models/User";
+import chatRoom from "./models/ChatRoom";
+
+
 const user = new User({
   name: "google",
   email : "ASD@ASD.ASD"
@@ -23,10 +37,4 @@ user.save((err)=>{
   })
 })
 */
-
-const PORT = process.env.PORT || 8080;
-
-server.listen(PORT, ()=>{
-  console.log(`Example app listening at http://localhost:${PORT}`)
-})
 

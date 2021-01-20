@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 html, body{
     margin: 0;
     height: 100%;
@@ -10,6 +16,9 @@ html, body{
     box-sizing: border-box;
 }
 
+li{
+    list-style-type: none;
+}
 
 /* main contanier */
 
@@ -45,49 +54,40 @@ html, body{
 /* short-cut-contanier */
 
 .main-shortcut-container{
-    color :rgb(129, 131, 134);
-    border-radius: 20px;
     width: 70%;
+    max-width: 600px;
+    height: 300px;
+
+    color :rgb(129, 131, 134);
+    background-color: rgb(255, 213, 213);;
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    margin: 10px 0;
-}
+    
 
-.shortcut-wrapper{
-    color: rgb(255, 213, 213);
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    margin-top: 50px;
+    border-radius: 20px;
+    overflow-y: scroll;
 }
 
 .tile{
-    background-color:  rgb(255, 213, 213);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    font-size: 30px;
-}
-
-.tile div{
-    position: relative;
-    top : 8px;
-    color: rgb(255, 255, 255);
+    color: black;
+    background-color: rgba(109, 107, 110, 0.521);
+    font-size: 25px;
+    margin: 10px;
 }
 
 
 /* todo container */
 
 .main-todo-container{
+    width: 70%;
+    max-width: 600px;
+    
     color :rgb(129, 131, 134);
-    margin-top: 100px;
+    margin-top: 90px;
     background-color: rgb(255, 213, 213);
     border-radius: 20px;
-    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,7 +95,6 @@ html, body{
 
 .todo-wrapper{
     width: 80%;
-    list-style-type: none;
     padding: 0;
 }
 

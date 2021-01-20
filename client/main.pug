@@ -16,8 +16,6 @@
                 a(href="/user/register") 회원가입
             button 
                 a(href="/user/git/login") 깃허브 로그인
-            button 
-                a(href="/user/git/register") 깃허브 회원가입
 
     else 
         div(id="user-box")
@@ -28,34 +26,25 @@
         <h1 class="main-clock-container" id="clock-container">
         </h1>
 
-        <form class="search-input-form" action="https://www.google.com/search">
-            <input name="q" class="search-input" type="search" placeholder="   Google 검색" >
+        <form class="search-input-form" action="/char/search">
+            <input name="room" class="search-input" type="search" placeholder="  채팅방 검색" >
             <button class="search-btn fas fa-search"></button>
         </form>
 
 
-        <div class="main-shortcut-container">
-            <h3>SHORTCUT</h3>
-            <div class="shortcut-wrapper">
-                <a class="tile" href="https://aws.amazon.com/ko/free/?trk=ps_a134p000003yHYoAAM&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=Google&sc_category=Core-Main&sc_country=KR&sc_geo=APAC&sc_outcome=acq&sc_detail=%2Baws&sc_content=Brand_Core_aws_bmm&sc_segment=444218216048&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Core-Main|Core|KR|EN|Text&s_kwcid=AL!4422!3!444218216048!b!!g!!%2Baws&ef_id=Cj0KCQiA_qD_BRDiARIsANjZ2LCidhNPeK3BAnAkpM1ILZn5jREOehIGu8BxxbAc_RdB32RtQJoT4gUaApceEALw_wcB:G:s&s_kwcid=AL!4422!3!444218216048!b!!g!!%2Baws" target="_blank">
-                    <div class="fab fa-aws"></div>
-                </a>
-                <a class="tile" href="https://www.acmicpc.net/" target="_blank">
-                    <div class="fas fa-code"></div>
-                </a>
-                <a id="short-cut-add" class="tile"  target="_blank">
-                    <div class="">chat</div>
-                </a>
-                <a class="tile" href="https://stackoverflow.com/" target="_blank">
-                  <div class="fab fa-stack-overflow"></div>
-                </a>
-                <a class="tile" href="https://www.google.com/" target="_blank">
-                  <div class="fab fa-google"></div>
-                </a>
-            </div>
-            <div id="shortcut-add-from">
-
-            </div>
+        
+        <div  class="main-shortcut-container">
+                <h3>MEETING</h3>
+                <ul>
+                    <a href="/chat/1"  target="_blank">
+                        <li class="tile">chat1</li>
+                    </a>
+                    <a href="/chat/2"  target="_blank">
+                        <li class="tile">chat2</li>
+                    </a>
+                    <a href="/chat/3"  target="_blank">
+                        <li class="tile">chat3</li>
+                <ul>
         </div>
 
         <div class="main-todo-container">

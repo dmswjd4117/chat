@@ -19,6 +19,19 @@ const accessPublic = (req, res, next) => {
     next();
 }
 
-export { localsMiddleware, accessPrivate , accessPublic }
+const auth = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return res.status(403).redirect("/");
+    }
+    next();
+}
+
+export {
+    localsMiddleware, 
+    accessPrivate , 
+    accessPublic,
+    auth
+ }
+ 
 
 //https://ko.javascript.info/import-export#ref-4122

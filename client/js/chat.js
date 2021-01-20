@@ -1,9 +1,15 @@
-const socket = io();
+const socket = io("http://localhost:1000")
 const chatForm = document.getElementById("chat-form");
 const chatMessage = document.querySelector(".chat-messages")
 
 
-socket.on("message", message=>{ // 서버에서 메세지 받음
+socket.on("connect", ()=>{
+    console.log(socket.id)
+})
+
+
+// 서버에서 메세지 받음
+socket.on("message", message=>{ 
     paintMessage(message)
     chatMessage.scrollTop = chatMessage.scrollHeight;
 })
@@ -14,11 +20,13 @@ chatForm.addEventListener("submit", (e) => {
     const message = e.target.elements.msg.value;
     e.target.elements.msg.value = ''
 
-    socket.emit("chatMessage", message) // 서버에 메세지 전달
+    // 서버에 메세지 전달
+    socket.emit("chatMessage", message) 
 })
 
 
-function paintMessage(message) {  // 메세지 화면에 표시하기
+// 메세지 화면에 표시하기
+function paintMessage(message) {  
     const div = document.createElement("div")
     div.classList.add("message")
     div.innerHTML = `
