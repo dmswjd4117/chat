@@ -19,6 +19,8 @@ io.on("connection", socket => {
 })
 
 
+export default io;
+
 /*
     socket.broadcast.emit("message", formatMessage(BOT,"00유저가 접속했습니다")) // 접속한 유저제외한 다른 유저
     
