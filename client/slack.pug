@@ -4,7 +4,13 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="/public/slack.css")
+        link(rel="shortcut icon", href="/public/favicon.png", type="image/x-icon")
         <script src="https://kit.fontawesome.com/00307318ee.js" crossorigin="anonymous" defer></script>
+        
+        script( src="/socket.io/socket.io.js" defer)
+        script(src="/public/joinNamespace.js" defer)
+        script(src="/public/joinRoom.js" defer)
+        script( src="/public/chat.js" defer)
         title slack
     body
         section(class="main")
@@ -15,7 +21,7 @@ html(lang="en")
             
             section(class="rooms")
                 h1(class="title") ROOMS
-                ul
+                ul(id="room-list")
                     li(id="current-room")
                         i(class="fas fa-globe-asia")
                         span Cats    
@@ -34,8 +40,18 @@ html(lang="en")
 
                     span(class="welcome-msg") welcome 
                 
+                div(class="messages")
+                    div(class="user-message")
+                        img(src="/public/user_image.jpg", alt="userimg")
+                        div(class="container")
+                            div(class="info")
+                                div(class="name") #{name}
+                                div(class="time") 4.36pm
+                            <div class="content">dadsdasdsddadsdasdsdvdadsdasdsddadsdasdsddadsdasdsddadsdasdsddadsdasdsddadsdasdsdvdadsdasdsddadsdasdsddadsdasdsddadsdasdsdv</div>
+
                 form(class="msg-form")
                     input(class="msg-input")
+
         nav(class="navbar")        
             i(class="far fa-user")
             i(class="fas fa-cog")  

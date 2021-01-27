@@ -22,6 +22,7 @@ li{
 }
 
 .navbar{
+    min-height: 50px;
     width: 100%;
     background-color: rgb(39, 41, 43);
     display: flex;
@@ -86,7 +87,6 @@ li{
 .rooms ul li:hover{
     background-color: rgb(55, 60, 90);
     cursor: pointer;
-    transform: scale(1.05);
 }
 
 .rooms ul > li span{
@@ -110,6 +110,7 @@ li{
 
 .chatting-room .header .title{
     display: flex;
+    font-size: 30px;
     padding: 5px;
 }
 
@@ -134,14 +135,54 @@ li{
 
 .chatting-room .welcome-msg{
     margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 
 /* 채팅 창 */
 
+.messages{
+    min-height: 600px;
+    height: 600px;
+    overflow-y: scroll;
+}
+.user-message{
+    display: flex;
+    align-items: center;
+    background-color: rgba(240, 248, 255, 0.473);
+    margin-bottom: 5px;
+    min-height: 60px;
+}
+
+.user-message img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translateX(20%);
+}
+
+.user-message .container{
+    display: flex;
+    flex-direction: column;
+    word-break:break-all;
+}
+
+.user-message  .container > *{
+    margin-left: 20px;
+}
+
+.user-message .container .info {
+    display: flex;
+}
+
+.user-message .container .info .time{
+    margin-left: 10px;
+}
+
+/* 채팅 폼 */
 .msg-form{
-    position: absolute;
-    bottom: 20px;
+    margin-bottom: 10px;
     width: 100%;
     text-align: center;
 }

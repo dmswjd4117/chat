@@ -19,18 +19,10 @@ const accessPublic = (req, res, next) => {
     next();
 }
 
-const auth = (req, res, next) => {
-    if(req.isAuthenticated()){
-        return res.status(403).redirect("/");
-    }
-    next();
-}
-
 export {
     localsMiddleware, 
     accessPrivate , 
     accessPublic,
-    auth
  }
  
 

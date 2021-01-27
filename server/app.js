@@ -15,6 +15,8 @@ import { localsMiddleware  , accessPrivate }  from "./middlewares";
 import "./db";
 import "./models/User";
 import "./paassport";
+// 임시 저장소
+import namespaces from "./data/namespace";
 dotenv.config();
 
 /*
@@ -65,22 +67,20 @@ app.use(localsMiddleware);
 const userRouter = require("./router/userRouter");
 
 
-
 app.get("/", async(req,res)=>{
     res.render("main.pug")
 })
 
 app.use("/user", userRouter)
 
-app.get("/chat/:id", accessPrivate, (req, res)=>{
-    
-    res.render("slack.pug")
-})
-
 
 // err
 app.use((req, res, next)=>{
     res.status(404).send("NOT FOUND");
+})
+
+app.get("/chat/:id", accessPrivate, (req, res)=>{
+  res.render("slack.pug", {name : req.user.name})
 })
 
 
@@ -89,59 +89,29 @@ const expressServer = app.listen(PORT, ()=>{
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-
 // socket 서버
 const io = socketio(expressServer);
 
-
-function formatMessage(username, text) {
-  return {
-    username,
-    text,
-    time : moment().format('h:mm a')
-  }
-}
-
+// 네임스페이스 불러오기
 io.of("/").on("connection", (socket) => {    
-  console.log("connected to the main namespace")
-  socket.on("chatMessage", msg => {
-      console.log(msg)
-      io.emit("message", formatMessage("dms", msg))
+  const nsData = namespaces.map((ns)=>{
+    return {
+        img: ns.img,
+        endpoint: ns.endpoint
+    }
   })
-
-  // of 네임스페이스 to 방
-  socket.join("one");
-  io.of("/").to("one").emit("join", "one")
+  socket.emit('nsList',nsData);
 })
 
-io.of('/admin').on('connection',(socket)=>{
-  console.log("connected to the admin namespace")
-  io.of('/admin').emit('welcome',"Welcome to the admin channel!");
+// 네임스페이스배열을 돌면서 네임스페이스 연결준비시키기
+namespaces.forEach((namespace)=>{
+  io.of(namespace.endpoint).on("connection", (nsSocket)=>{
+    console.log(`connected to the ${namespace.nsTitle}`)
+    nsSocket.emit('nsRoomLoad', namespace.rooms);
+  })
 })
 
 
 
-module.exports = { io }
-
-/*
-서버에서 이 소켓에게만 전달  (자신에게만)
-socket.emit()
-
-각 소켓은 각자의 룸이 있기 때문에(소켓의 아이디를 이름으로가진)  (특정 유저에게)
-소켓은 다른 소켓으로 메세지를 보낼 수 있다.
-socket.to(다른소켓아이디).emit()
 
 
-네임스페이스는 전체 네임스페이스에게 메세지를 보낼 수 있다.(모든 유저에게)
-io.of(네임스페이스).emit()
-
-
-// 방 
-
-소켓에서 방에게 메세지를 보낼수있다. 
-socket.to(룸이름).emit()
-
-
-네임스페이스는 어떤 방이든 메세지를 보낼수있다.  
-io.of(네임스페이스).to(룸이름).emit()
-*/
