@@ -97,11 +97,18 @@ namespaces.forEach((namespace)=>{
     // console.log(`connected to the ${namespace.nsTitle}`)
     nsSocket.emit('nsRoomLoad', namespace.rooms);
 
+
     nsSocket.on('joinRoom',(roomToJoin)=>{
       // 방금 접속해있던 룸 나가기
       nsSocket.leave(Array.from(nsSocket.rooms)[1])
       // 새로운 룸 접속하기
       nsSocket.join(roomToJoin)
+
+      const roomHistory = Array.from(namespace.rooms).find((elem)=>{
+        return elem.roomTitle === roomToJoin;
+      })
+
+      nsSocket.emit('roomHistory', roomHistory.history )
     })
 
     nsSocket.on('messageFromClient', (msg) => {
@@ -113,10 +120,12 @@ namespaces.forEach((namespace)=>{
       }
       
       const roomName = Array.from(nsSocket.rooms)[1];
-
+      const roomHistory = Array.from(namespace.rooms).find((elem)=>{
+        return elem.roomTitle === roomName;
+      })
+      roomHistory.history.push(convertedMsg);
       console.log(`${roomName} 에게 ${convertedMsg.content} 보내기`)
       io.of(namespace.endpoint).to(roomName).emit('messageFromServer', convertedMsg);
-    
     })
 
   })
