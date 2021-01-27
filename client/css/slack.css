@@ -45,7 +45,7 @@ li{
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .namespace .img{
@@ -147,7 +147,9 @@ li{
     height: 600px;
     overflow-y: scroll;
 }
+
 .user-message{
+    position: relative;
     display: flex;
     align-items: center;
     background-color: rgba(240, 248, 255, 0.473);
@@ -179,6 +181,20 @@ li{
 .user-message .container .info .time{
     margin-left: 10px;
 }
+
+
+.user-message  #delete{
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-message  #delete:hover{
+    cursor: pointer;
+    color: rgb(243, 95, 95);
+}
+
 
 /* 채팅 폼 */
 .msg-form{
