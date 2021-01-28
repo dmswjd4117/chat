@@ -4,7 +4,6 @@ const messageSchema = new Schema({
     //https://catnap-jo.tistory.com/19
     content : {
         type : String,
-        required : true
     },
     time : {
         type: Date,

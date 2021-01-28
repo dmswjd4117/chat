@@ -44,7 +44,9 @@ function joinNamespace(endpoint) {
     nsSocket.on('messageFromServer', (msg)=>{
         const parent = document.getElementById("contents");
         console.log(msg.content, parent)
-        parent.innerHTML += makeNode(msg)    
+        parent.innerHTML += makeNode(msg)   
+        const element = document.getElementById("contents");
+        element.scrollTop = element.scrollHeight ; 
     })
 
 }
@@ -53,14 +55,17 @@ function joinNamespace(endpoint) {
 function submitForm(event) {
     event.preventDefault();
     const msg = document.querySelector('#user-message').value;
+    document.querySelector('#user-message').value = "";
+
     nsSocket.emit('messageFromClient', msg)
 }
 
 
 function makeNode(msg) {
+    console.log(msg.avatar)
     const node = `
     <div class="user-message">
-        <img src= ${msg.avatar}, alt="userimg"></img>
+        <img src="${msg.avatar}", alt="userimg"></img>
         <div class="container">
             <div class="info">
                 <div class="name"> ${msg.name} </div>

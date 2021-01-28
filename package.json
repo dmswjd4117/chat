@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/app.js --exec babel-node ",
-    "init": "nodemon server/init.js --exec babel-node ",
+    "dev": "nodemon server/init.js --exec babel-node ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -32,6 +32,7 @@
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
     "socket.io": "^3.0.4",
+    "socket.io-mongodb": "^1.1.1",
     "ws": "^7.4.1"
   },
   "devDependencies": {

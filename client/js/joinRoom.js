@@ -8,6 +8,8 @@ function joinRoom(roomName) {
         history.forEach((elem)=>{
             messages.innerHTML += makeNode(elem);
         })
+
+        messages.scrollTo(0,messages.scrollHeight);
     })
 }
 

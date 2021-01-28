@@ -7,9 +7,11 @@ const chatMessage = document.querySelector(".chat-messages")
 
 let nsSocket = "";
 
+
 socket.on("connect", ()=>{
     console.log("메인 소켓 연결")
 })
+
 
 // 서버에서 네임스페이스 리스트 받아옴
 socket.on('nsList', (nsData) => {
