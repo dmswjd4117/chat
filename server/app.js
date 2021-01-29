@@ -1,5 +1,4 @@
 const PORT = process.env.PORT || 8080;
-import socketio from "socket.io";
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -65,21 +64,19 @@ app.use("/user", userRouter)
 
 app.use("/chat", accessPrivate, chatRouter)
 
+app.get("/init", async(req, res)=>{
+  console.log("초기화 완료")
+  mongoose.connection.db.dropCollection('namespaces');
+  mongoose.connection.db.dropCollection('rooms');
+  mongoose.connection.db.dropCollection('messages');
 
-// err
-app.use((req, res, next)=>{
-  res.status(404).send("NOT FOUND");
-})
-
-
-app.get("/first/init", async(req, res)=>{
   const catNs = await Namespace.create({
     img : "image1.jpg",
     nsTitle : "CAT",
     endPoint : "/cat"
   })
 
-  await Namespace.create({
+  const Linux = await Namespace.create({
     img : "image2.jpg",
     nsTitle : "Linux",
     endPoint : "/linux"
@@ -90,18 +87,31 @@ app.get("/first/init", async(req, res)=>{
     namespace : catNs._id,
   })
 
-  catNs.rooms.push(catPic._id);
-  catNs.save();
-
+  
   const catTalk = await Room.create({
     roomTitle : "talk",
     namespace : catNs._id,
   })
 
-  catNs.rooms.push(catTalk._id);
+
+  const redHat = await Room.create({
+    roomTitle : "RED HAT",
+    namespace : catNs._id,
+  })
+
+  catNs.rooms.push({ "roomTitle" : catPic.roomTitle , "roomID" : catPic._id});
+  catNs.rooms.push({ "roomTitle" : catTalk.roomTitle , "roomID" : catTalk._id});
   catNs.save();
 
+  Linux.rooms.push({ "roomTitle" : redHat.roomTitle , "roomID" : redHat._id});
+  Linux.save();
+
   res.redirect("/chat");
+})
+
+// err
+app.use((req, res, next)=>{
+  res.status(404).send("NOT FOUND");
 })
 
 

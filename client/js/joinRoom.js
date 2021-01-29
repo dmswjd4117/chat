@@ -1,4 +1,7 @@
 function joinRoom(roomName) {
+    console.log(roomName)
+    document.getElementById("roomTitle").innerHTML = roomName;
+
     nsSocket.emit('joinRoom', roomName)
 
     nsSocket.on('roomHistory', (history)=>{

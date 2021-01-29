@@ -2,6 +2,16 @@ import mongoose , { mongo, Schema }from "mongoose";
 
 const messageSchema = new Schema({
     //https://catnap-jo.tistory.com/19
+    avatar : {
+        type : String
+    },
+    userID : {
+        type : mongoose.Types.ObjectId,
+        ref : "user"
+    },
+    name : {
+        type : String
+    },
     content : {
         type : String,
     },
@@ -9,10 +19,6 @@ const messageSchema = new Schema({
         type: Date,
         default : Date.now
     },
-    userID : {
-        type: mongoose.Types.ObjectId,
-        ref: "user"
-    }
 })
 
                             //모델 이름  // 스키마

@@ -15,7 +15,6 @@ function joinNamespace(endpoint) {
     // 룸리스트 가져오기
     nsSocket.on('nsRoomLoad', (rooms)=>{
         const roomList = document.getElementById("room-list");
-        console.log(roomList)
         roomList.innerHTML = "";
         rooms.forEach((room)=>{
             let locked = false;
@@ -62,7 +61,6 @@ function submitForm(event) {
 
 
 function makeNode(msg) {
-    console.log(msg.avatar)
     const node = `
     <div class="user-message">
         <img src="${msg.avatar}", alt="userimg"></img>

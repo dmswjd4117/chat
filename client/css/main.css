@@ -20,6 +20,11 @@ li{
     list-style-type: none;
 }
 
+a{
+    text-decoration:none;
+    color : black
+}
+
 /* main contanier */
 
 .main-container{
@@ -31,16 +36,19 @@ li{
 }
 
 .main-clock-container{
+    margin-top: 100px;
     font-size: 60px;
     border-radius: 10px;
     color :rgb(129, 131, 134);
 }
 
 .search-input{
+    margin: 30px 0;
     width:  500px;
     height: 35px;
     border: none;
     border-radius: 20px;
+    padding: 20px;
     outline: none;
 }
 
@@ -51,86 +59,26 @@ li{
     border: none;
 }
 
-/* short-cut-contanier */
 
-.main-shortcut-container{
-    width: 70%;
-    max-width: 600px;
-    height: 300px;
-
-    color :rgb(129, 131, 134);
-    background-color: rgb(255, 213, 213);;
-    text-align: center;
+#user-box{
+    height: 50px;
+    width: 500px;
     display: flex;
-    flex-direction: column;
-    
-
-    margin-top: 50px;
-    border-radius: 20px;
-    overflow-y: scroll;
-}
-
-.tile{
-    color: black;
-    background-color: rgba(109, 107, 110, 0.521);
-    font-size: 25px;
-    margin: 10px;
-}
-
-
-/* todo container */
-
-.main-todo-container{
-    width: 70%;
-    max-width: 600px;
-    
-    color :rgb(129, 131, 134);
-    margin-top: 90px;
-    background-color: rgb(255, 213, 213);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-.todo-wrapper{
-    width: 80%;
-    padding: 0;
+#user-box > button{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(240, 248, 255, 0.671);
+    border: 0 solid;
+    margin: 20px;
+    transition: 0.4s;
 }
 
-.todo-wrapper .todo-list-element{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    margin: 20px 0px;    
-}
-
-.todo-content{
-    color :rgb(129, 131, 134);
-    margin: 0 10px;
-    width: 70%; 
-    word-wrap:break-word;
-}
-
-#todo-check, #todo-delete{
-    display: flex;
-    align-items: center;
-}
-
-
-#add-todo-input{
-    width:  300px;
-    height: 25px;
-    border: none;
-    outline: none;
-}
-
-.add-todo-btn{
-    height: 25px;
-}
-
-#todo-delete:hover{
-    color: rgb(224, 133, 148);
-    transform: scale(1.4);
-    transition: 0.5s;
+#user-box > button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
 }

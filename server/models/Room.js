@@ -12,9 +12,10 @@ const roomSchema = new Schema({
     privateRoom : {
         type : Boolean
     },
-    history : {
-        type : Array
-    },
+    history : [{
+        type : mongoose.Types.ObjectId,
+        ref : "message"
+    }],
     users : [{
         type: mongoose.Types.ObjectId,
         ref : "user"

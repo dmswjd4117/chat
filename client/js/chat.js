@@ -18,8 +18,11 @@ socket.on('nsList', (nsData) => {
     const div = document.querySelector(".namespace");
     div.innerHTML = "";
     nsData.forEach(ns=>{
+        console.log(ns)
         div.innerHTML += 
-        `<img class="img namespace-img" ns=${ns.endpoint} src="/public/${ns.img}" />`
+        `<img class="img namespace-img" ns=${ns.endpoint} src="/public/${ns.img}" />
+        <div class="nsTitle">${ns.nsTitle}</div>
+        `
     })
 
     // 클릭하면 네임스페이스에 연결

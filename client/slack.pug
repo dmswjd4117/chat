@@ -15,25 +15,25 @@ html(lang="en")
     body
         section(class="main")
             section(class="namespace")
-                img(id="current-namespace" src="/public/backgroud4.jpg", class="img" alt="first")
-                img(src="/public/image1.jpg", class="img" alt="first")
-                img(src="/public/image2.jpg", class="img" alt="first")
+                //- img(id="current-namespace" src="/public/backgroud4.jpg", class="img" alt="first")
+                //- img(src="/public/image1.jpg", class="img" alt="first")
+                //- img(src="/public/image2.jpg", class="img" alt="first")
             
             section(class="rooms")
                 h1(class="title") ROOMS
                 ul(id="room-list")
-                    li(id="current-room")
-                        i(class="fas fa-globe-asia")
-                        span Cats    
-                    li
-                        i(class="fas fa-globe-asia")
-                        span others    
+                    //- li(id="current-room")
+                    //-     i(class="fas fa-globe-asia")
+                    //-     span Cats    
+                    //- li
+                    //-     i(class="fas fa-globe-asia")
+                    //-     span others    
 
             section(class="chatting-room")
                 div(class="header")
 
                     div(class="title")
-                        h1(class="name") Cats
+                        h1(id="roomTitle" class="name") Cats
                         div(class="people-nums")
                             span 1
                             i(class="fas fa-user-alt")
@@ -41,17 +41,20 @@ html(lang="en")
                     span(class="welcome-msg") welcome 
                 
                 div(id="contents" class="messages")
-                    div(class="user-message")
-                        img(src="/public/user_image.jpg", alt="userimg")
-                        div(class="container")
-                            div(class="info")
-                                div(class="name") #{name}
-                                div(class="time") 4.36pm
-                            <div class="content"></div>
+                    //- div(class="user-message")
+                        //- img(src="/public/user_image.jpg", alt="userimg")
+                        //- div(class="container")
+                        //-     div(class="info")
+                        //-         div(class="name") #{name}
+                        //-         div(class="time") 4.36pm
+                        //-     <div class="content"></div>
 
                 form(class="msg-form")
                     input(id="user-message" class="msg-input")
 
-        nav(class="navbar")        
-            i(class="far fa-user")
-            i(class="fas fa-cog")  
+        nav(class="navbar") 
+            a(href="/")
+                i(class="fas fa-home" alt="main")    
+            a(href="/user/info")   
+                i(class="far fa-user" alt="user info")
+            //- i(class="fas fa-cog" alt="config")  
