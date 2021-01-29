@@ -27,9 +27,10 @@ userRouter.post("/register", accessPublic, (req, res)=>{
 
     if(password != confirmPassword){
         res.status(400);
-        return res.render('register' ,{ "message" : "비밀번호가 일치하지 않습니다"})
+        return res.render('main' ,{ "message" : "비밀번호가 일치하지 않습니다"})
     }
-
+    
+    console.log(name,email )
     User.find({ email }, async(err, user) => {
         if(user.length){
             console.log(user)

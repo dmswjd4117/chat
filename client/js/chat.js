@@ -9,21 +9,24 @@ let nsSocket = "";
 
 
 socket.on("connect", ()=>{
-    console.log("메인 소켓 연결")
+    // console.log("메인 소켓 연결")
 })
 
 
 // 서버에서 네임스페이스 리스트 받아옴
 socket.on('nsList', (nsData) => {
     const div = document.querySelector(".namespace");
-    div.innerHTML = "";
+    div.innerHTML = "<img id='add-namespace' class='img' src='/public/plus.svg' />";
     nsData.forEach(ns=>{
-        console.log(ns)
         div.innerHTML += 
         `<img class="img namespace-img" ns=${ns.endpoint} src="/public/${ns.img}" />
         <div class="nsTitle">${ns.nsTitle}</div>
         `
     })
+
+    // document.getElementById("add-namespace").addEventListener("click",(event)=>{
+        
+    // })
 
     // 클릭하면 네임스페이스에 연결
     Array.from(document.getElementsByClassName('namespace-img')).forEach((elem)=>{

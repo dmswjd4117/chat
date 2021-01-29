@@ -1,0 +1,52 @@
+.pop-up__register{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 400px;
+    background-color: rgb(80, 80, 80);
+    color: aliceblue;
+    font-size: 13px;
+}
+
+
+.reigster-form {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reigster-form > div label{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+
+.reigster-form input[type="text"],
+.reigster-form input[type="password"]
+{
+    width: 300px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.reigster-form input[type="submit"]{
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    border: 0 solid;
+}
+
+.reigster-form input[type="submit"]:hover{
+    cursor: pointer;
+}

@@ -61,6 +61,10 @@ a{
     transition: transform 0.5s ease-in;
 }
 
+#add-namespace{
+    background-color: rgba(240, 248, 255, 0.61);
+}
+
 .namespace .img:hover{
     cursor: pointer;
     transform: scale(1.1);

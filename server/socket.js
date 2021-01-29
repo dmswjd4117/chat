@@ -1,12 +1,11 @@
 import { sessionMiddleWare, expressServer } from "./app";
 import sharedsession  from "express-socket.io-session";
 import socketio from "socket.io";
-import namespaces from "./data/namespace";
 import moment from "moment";
 import Room from "./models/Room";
 import Namespace from "./models/Namespace";
 import Messages from "./models/Message";
-import User from "./models/User";
+
 
 // socket 서버
 const io = socketio(expressServer);

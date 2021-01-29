@@ -1,9 +1,6 @@
 function joinNamespace(endpoint) {
 
-    console.log("지우기")
     document.querySelector(".msg-form").removeEventListener('submit',submitForm)
-
-    console.log("붙이기")
     document.querySelector(".msg-form").addEventListener('submit', submitForm)
 
     if(nsSocket){

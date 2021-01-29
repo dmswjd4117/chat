@@ -4,10 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
+    <link rel="stylesheet", href="/public/register.css">
     <link rel="stylesheet", href="/public/main.css">
+    <link rel="stylesheet", href="/public/login.css">
     <link rel="stylesheet", href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU", crossorigin="anonymous">
 </head>
 <body>
+    div(class="overlay hidden")
+    div(class="pop-up__login hidden")
+        <form class="login-form" action="/user/login" method="post">
+            <div>
+                <label>EMAIL</label>
+                <input type="text" name="email" required/>
+            </div>
+            <div >
+                <label>PASSWORD</label>
+                <input type="password" name="password" required/>
+            </div>
+            <div>
+                <input class="login-button" type="submit" value="Log In"/>
+            </div>
+        </form>
+        <i class="far fa-times-circle close"></i>
+
+    //- hidden
+    div(class="pop-up__register hidden") 
+        form(class="reigster-form" action="/user/register", method="POST")
+            div
+                label 이름
+                input(type="text" name="name" placeholder="name" required)
+            div
+                label 이메일
+                input(type="text" name="email" placeholder="email" required)
+            div
+                label 패스워드
+                input(type="password" name="password" placeholder="password" required)
+            div
+                label 패스워드 확인
+                input(type="password" name="confirmPassword" placeholder="confirm password" required)
+            <div>
+                <input class="register-button" type="submit" value="회원가입"/>
+            </div>
+
+        <i class="far fa-times-circle close"></i>
+
 
     <div class="main-container"> 
         <h1 class="main-clock-container" id="clock-container">
@@ -21,10 +61,8 @@
 
     if !user
         div(id="user-box")
-            button 
-                a(href="/user/login") 로그인
-            button 
-                a(href="/user/register") 회원가입
+            button(class="login_click") 로그인
+            button(class="register_click") 회원가입
             button 
                 a(href="/user/git/login") 깃허브 로그인
     else
@@ -35,9 +73,8 @@
                 a(href="/chat") 채팅하기
             button 
                 a(href="/user/logout") 로그아웃
-
-
     </div>
+        
 
     <script type="module" src="/public/main.js"></script>
 </body>
