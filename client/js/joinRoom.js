@@ -1,19 +1,23 @@
 function joinRoom(roomName) {
-    console.log(roomName)
-    document.getElementById("roomTitle").innerHTML = roomName;
+    const messages = document.getElementById("contents");
 
-    nsSocket.emit('joinRoom', roomName)
 
-    nsSocket.on('roomHistory', (history)=>{
-        const messages = document.getElementById("contents");
-        messages.innerHTML = "";
-    
-        history.forEach((elem)=>{
-            messages.innerHTML += makeNode(elem);
-        })
-
-        messages.scrollTo(0,messages.scrollHeight);
-    })
 }
 
 
+function makeHistoryNode(obj) {
+    const { avataUrl , history : msg}  = obj;
+    const node = `
+    <div class="user-message">
+        <img src="${avataUrl}", alt="userimg"></img>
+        <div class="container">
+            <div class="info">
+                <div class="name"> ${msg.name} </div>
+                <div class="time"> ${msg.time} </div>
+            </div>
+            <div class="content"> ${msg.content} </div>
+            <i id="delete" class="far fa-trash-alt"></i>
+    </div>
+    `
+    return node;
+}

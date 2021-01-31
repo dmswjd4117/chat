@@ -12,7 +12,7 @@ html, body{
     background-image:
     url("/public/backgroud4.jpg");
     */
-    background-color: rgb(250, 190, 220);
+    background-color: rgb(29, 30, 63);
     box-sizing: border-box;
     position: relative;
 }

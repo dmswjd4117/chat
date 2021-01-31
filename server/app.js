@@ -3,12 +3,13 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import path from "path"
 import morgan from "morgan";
 import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
-import { localsMiddleware  , accessPrivate }  from "./middlewares";
+import { localsMiddleware  , accessPrivate , userInfo }  from "./middlewares";
 import "./db";
 import "./models/User";
 import "./paassport";
@@ -16,6 +17,7 @@ import userRouter from "./router/userRouter";
 import chatRouter from "./router/chatRouter";
 import Room from "./models/Room";
 import Namespace from "./models/Namespace";
+import User from "./models/User";
 dotenv.config();
 
 // express 서버
@@ -41,9 +43,12 @@ app.use(sessionMiddleWare);
 app.set('view engine', 'pug')
 app.set('views', 'client')
 
+
 app.use('/public', express.static('client/image')); 
+// app.use('/public', express.static('client/uploads')); 
 app.use('/public', express.static('client//css'));
 app.use('/public', express.static('client/js'));
+app.use('/uploads', express.static('uploads')); 
 
 app.use(morgan("dev"));
 app.use(bodyParser.json()); //json으로 온 요청을 해석
@@ -55,9 +60,8 @@ app.use(passport.session());
 app.use(localsMiddleware);
 
 
-
 app.get("/", async(req,res)=>{
-    res.render("main.pug")
+  res.render("main.pug")
 })
 
 app.use("/user", userRouter)

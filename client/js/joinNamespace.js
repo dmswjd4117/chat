@@ -28,23 +28,31 @@ function joinNamespace(endpoint) {
         const roomNodes = document.getElementsByClassName('room');
         Array.from(roomNodes).forEach((elem)=>{
             elem.addEventListener("click",(event)=>{
-                joinRoom(event.target.innerText);
+                const roomName = event.target.innerText;
+                initRooms(roomName)
+                nsSocket.emit('joinRoom', roomName);
             })
         })
 
         const topRoomName = document.querySelector(".room").innerText;
-        joinRoom(topRoomName);
+        initRooms(topRoomName)
+        nsSocket.emit('joinRoom', topRoomName);
     })
 
 
     nsSocket.on('messageFromServer', (msg)=>{
         const parent = document.getElementById("contents");
-        console.log(msg.content, parent)
         parent.innerHTML += makeNode(msg)   
         const element = document.getElementById("contents");
         element.scrollTop = element.scrollHeight ; 
     })
 
+    // nsSocket.on('roomHistory', (obj)=>{
+    //     console.log(obj.history.content)
+    //     const messages = document.getElementById("contents");
+    //     messages.innerHTML += makeHistoryNode(obj);
+    //     messages.scrollTo(0,messages.scrollHeight);
+    // })
 }
 
 
@@ -71,4 +79,12 @@ function makeNode(msg) {
     </div>
     `
     return node;
+}
+
+function initRooms(roomTitle) {
+    const title = document.getElementById("roomTitle");
+    const messages = document.getElementById("contents");
+
+    title.innerHTML = roomTitle;
+    messages.innerHTML = "";
 }

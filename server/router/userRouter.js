@@ -1,13 +1,44 @@
 import passport from "passport";
 import express from "express";
 import User from "../models/User";
-import { localsMiddleware, accessPrivate, accessPublic } from "../middlewares";
+import path from "path";
+import multer from "multer";
+import { fileFilter} from "../helpers";
+
+import { localsMiddleware, accessPrivate, accessPublic ,userInfo } from "../middlewares";
 
 const userRouter = express.Router();
-
-userRouter.get("/info", accessPrivate, (req, res)=>{
-    res.render('userDetail')
+const storage = multer.diskStorage({
+    destination : function(req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename : function(req, file, cb) {
+        // fieldname: 'profile_pic',
+        // originalname: '6.jpeg',
+        // encoding: '7bit',
+        // mimetype: 'image/jpeg'
+        cb(null, file.fieldname+'-'+Date.now()+path.extname(file.originalname))
+    }
 })
+const upload = multer({ storage , fileFilter}).single('profile_pic');
+
+userRouter.get("/info", accessPrivate, userInfo, (req, res)=>{
+    const { avataUrl, email, name} = req.userInfo
+    res.render('userDetail' , { respond : {avataUrl, email, name} })
+})
+
+userRouter.post("/img/upload", accessPrivate, (req, res)=>{
+    upload(req, res, async(err)=>{
+        if(err){
+            return res.staus(400).render('userDetail', {err : err})
+        }
+        if(req.file){
+            await User.findOneAndUpdate({ _id : req.user._id}, { avataUrl : req.file.path});
+            res.redirect('/user/info')
+        }
+    })
+})
+
 
 userRouter.get("/login", accessPublic, (req, res)=>{
     res.render('login')

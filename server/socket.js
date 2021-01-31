@@ -1,10 +1,12 @@
 import { sessionMiddleWare, expressServer } from "./app";
 import sharedsession  from "express-socket.io-session";
+import { userInfo } from "./middlewares";
 import socketio from "socket.io";
 import moment from "moment";
 import Room from "./models/Room";
 import Namespace from "./models/Namespace";
 import Messages from "./models/Message";
+import User from "./models/User";
 
 
 // socket 서버
@@ -29,14 +31,18 @@ io.of("/").on("connection", function(socket) {
 })
 
 
-Namespace.find({}, function(err, namespaces) {
+Namespace.find({}, (err, namespaces) => {
   namespaces.forEach((namespace)=>{
     // 세션정보 네임스페이스 에서 이용 하게하기
     io.of(namespace.endPoint).use(sharedsession(sessionMiddleWare));
-  
+
     // 데이터 배열돌면서 네임스페이스  연결대기 시키기
-    io.of(namespace.endPoint).on("connection", (nsSocket)=>{
-      const user = nsSocket.handshake.session.passport.user;
+    io.of(namespace.endPoint).on("connection", async(nsSocket)=>{
+      const id = nsSocket.handshake.session.passport.user._id;
+      let user = "";
+      await User.findById(id, (err, res)=>{
+        user = res;
+      })
 
       // 방 종류들 클라이언트에게 보내기
       nsSocket.emit('nsRoomLoad', namespace.rooms);
@@ -45,24 +51,42 @@ Namespace.find({}, function(err, namespaces) {
       nsSocket.on('joinRoom', (roomToJoin)=>{
         nsSocket.leave(Array.from(nsSocket.rooms)[1])
         nsSocket.join(roomToJoin)
+        console.log(Array.from(nsSocket.rooms)[1])
 
         const roomName = Array.from(nsSocket.rooms)[1];
         if(roomName){
           Room.findOne({ "roomTitle" : roomName })
           .populate("history")
           .exec((err, data)=>{
-            // console.log(data.history)
-            nsSocket.emit('roomHistory', data.history )
+            // nsSocket.emit('roomHistory', data.history)
+            data.history.forEach((history)=>{
+              console.log(history)
+              User.findById(history.userID, (err, user)=>{
+                nsSocket.emit('roomHistory', 
+                {avataUrl : user.avataUrl, history })
+              })})
           })
         }
       })
-      
+      /*
+      [{
+        "_id":"60169a3c799fef9944bbdef6",
+        "userID":"6016883adf402f570433cbe1",
+        "name":"dmswjd","content":"kk","time":"2021-01-31T11:53:32.267Z","__v":0
+        }
+        ,
+        {"_id":"60169ad12bcaa88a68094286",
+        "userID":"6016883adf402f570433cbe1","name":"dmswjd"
+        ,"content":"ss"
+        ,"time":"2021-01-31T11:56:01.860Z","__v":0
+        }
+      ] 
+      */
       // 메세지 주고 받기
       nsSocket.on('messageFromClient', async (msg) => {
         const roomName = Array.from(nsSocket.rooms)[1];
 
         const newMessage = await Messages.create({
-          avatar : user.avataUrl || "/public/user_image.jpg",
           userID : user._id,
           name : user.name,
           content : msg,

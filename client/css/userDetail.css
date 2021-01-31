@@ -45,25 +45,34 @@ body{
     height: 300px;
 }
 
+
+
 .user-image-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.user-image-container img{
+.user-image-container .user-image{
     width: 200px;
     height: 200px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
 
+.user-image__file{
+    margin-left: 60px;
+}
+
 .user-image-container button{
     border: 2px solid rgb(37, 37, 37);
+    width: 300px;
     height: 30px;
     color: aliceblue;
     background-color: rgb(54, 54, 141);
     border-radius: 10px;
     transition: transform 0.5s;
+    margin: 5px;
 }
 
 button:hover{
@@ -83,7 +92,7 @@ button:hover{
     background-color: rgb(182, 182, 182);
 }
 
-.name-contaier, .email-contaier{
+.name-contaier, .email-contaier, .password-container{
     width: 80%;
     height: 70px;
     display: flex;
@@ -108,7 +117,9 @@ button:hover{
 }
 
 
-.name-contaier .title, .email-contaier .title{
+.name-contaier .title,
+.email-contaier .title,
+.password-container .title{
     font-size: 20px;
     color: aliceblue;
     margin-bottom: 10px;

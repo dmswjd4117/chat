@@ -1,3 +1,5 @@
+import User from "./models/User";
+
 const localsMiddleware  = (req, res, next) => {
     res.locals.user = req.user || null;
     next();
@@ -18,10 +20,22 @@ const accessPublic = (req, res, next) => {
     next();
 }
 
+const userInfo = (req,res, next)=>{
+    User.findById(req.user._id, (err, user)=>{
+      req.userInfo = null;
+      if(user){
+        req.userInfo = user;
+      }
+      next();
+    })
+  }
+  
+
 export {
     localsMiddleware, 
     accessPrivate , 
     accessPublic,
+    userInfo
  }
  
 
