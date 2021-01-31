@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title user config
+        link(rel="stylesheet", href="/public/userDetail.css")
+    body
+        div(class="header")
+            div 
+                a(href="/") HOME
+            div
+                a(href="/chat") CHAT
+        
+        section(class="user-profile-box")
+            div(class="user-image-container")
+                img(class="user-image" src=user.avataUrl, alt="user image")
+                button 프로필 사진 업데이트
+
+        section(class="user-info-box")
+            div(class="name-contaier")
+                label(class="title") 이름
+                div(class="name")
+                    form(action="/user/name/change", method="post")
+                        input(name="name" value=`${user.name}`) 
+                        button 변경
+
+            div(class="email-contaier")
+                label(class="title") 이메일
+                div(class="email") #{user.email || "email@google.com"}
+
+            div(class="password-container")
+                button 비밀번호변경하기
+
+        //- section(class="user-info-box")
+        //-     div(class="info-container-left")
+        //-         div(class="name-contaier")
+        //-             label(class="name-title") 이름
+        //-             input(class="name" value=`${user.name}`) 
+
+        //-         div(class="email-contaier")
+        //-             label(class="email-title") 이메일
+        //-             div(class="email") #{user.email || "email@google.com"}
+
+        //-     div(class="info-container-right")
+        //-         div(class="name-contaier")
+        //-             label(class="name-title") 이름
+        //-             div(class="name") #{user.name}
+
+        //-         div(class="email-contaier")
+        //-             label(class="email-title") 이메일
+        //-             div(class="email") #{user.email || "email@google.com"}

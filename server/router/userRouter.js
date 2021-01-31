@@ -5,6 +5,9 @@ import { localsMiddleware, accessPrivate, accessPublic } from "../middlewares";
 
 const userRouter = express.Router();
 
+userRouter.get("/info", accessPrivate, (req, res)=>{
+    res.render('userDetail')
+})
 
 userRouter.get("/login", accessPublic, (req, res)=>{
     res.render('login')
