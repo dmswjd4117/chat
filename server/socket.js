@@ -51,20 +51,13 @@ Namespace.find({}, (err, namespaces) => {
       nsSocket.on('joinRoom', (roomToJoin)=>{
         nsSocket.leave(Array.from(nsSocket.rooms)[1])
         nsSocket.join(roomToJoin)
-        console.log(Array.from(nsSocket.rooms)[1])
 
         const roomName = Array.from(nsSocket.rooms)[1];
         if(roomName){
           Room.findOne({ "roomTitle" : roomName })
           .populate("history")
           .exec((err, data)=>{
-            // nsSocket.emit('roomHistory', data.history)
-            data.history.forEach((history)=>{
-              console.log(history)
-              User.findById(history.userID, (err, user)=>{
-                nsSocket.emit('roomHistory', 
-                {avataUrl : user.avataUrl, history })
-              })})
+            nsSocket.emit('roomHistory',  data.history)
           })
         }
       })
@@ -87,6 +80,7 @@ Namespace.find({}, (err, namespaces) => {
         const roomName = Array.from(nsSocket.rooms)[1];
 
         const newMessage = await Messages.create({
+          avatar : user.avataUrl,
           userID : user._id,
           name : user.name,
           content : msg,
