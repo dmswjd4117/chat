@@ -3,14 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "v12.16.3"
+  },
   "scripts": {
+    "prestart": "npm run build", 
     "start": "node build/server/init.js",
-    "dev": "nodemon src/server/init.js --exec babel-node ",
-    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "prebuild": "rm -rf build && mkdir  build",
+    "build": "npm run copyAll && npm run build:server",
+    
+    "copy": "shx cp -r src/client build",
+    "copyAll" : "cp -R src/client build",
     "build:server": "babel src --out-dir build",
-    "prebuild": "rd /s \"build\"",
-    "copyAll" : "xcopy src\\client build\\client /d /e /h /c /y /i",
-    "build" : "npm run copyAll && npm run build:server"
+
+    "deletebuild" : "rd /s \"build\"",
+    "dev:build" : " mkdir  build && shx cp -R src/client build && babel src --out-dir build"
   },
   "author": "",
   "license": "ISC",
@@ -49,6 +57,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
-    "babel-loader": "^8.2.2"
+    "babel-loader": "^8.2.2",
+    "shx": "^0.3.3"
   }
 }

@@ -7,7 +7,7 @@ function joinNamespace(endpoint) {
         nsSocket.close();
     }
 
-    nsSocket = io(`http://localhost:1000${endpoint}`);
+    nsSocket = io(`https://lit-earth-78406.herokuapp.com${endpoint}`);
 
     // 룸리스트 가져오기
     nsSocket.on('nsRoomLoad', (rooms)=>{

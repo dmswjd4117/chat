@@ -1,5 +1,5 @@
 
-const socket = io("http://localhost:1000");
+const socket = io("https://lit-earth-78406.herokuapp.com");
 const input = document.getElementById("msg");
 const chatForm = document.getElementById("chat-form");
 const charInput = document.getElementById("#msg")
