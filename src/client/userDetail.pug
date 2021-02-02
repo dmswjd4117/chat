@@ -4,7 +4,7 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title user config
-        link(rel="stylesheet", href="/public/userDetail.css")
+        link(rel="stylesheet", href="/css/userDetail.css")
     body
         div(class="header")
             div 
@@ -14,7 +14,7 @@ html(lang="en")
 
         section(class="user-profile-box")
             form(action="/user/img/upload" method="POST" class="user-image-container" enctype="multipart/form-data")
-                image(class="user-image" type="image" src=`${respond.avataUrl}`)
+                image(class="user-image" type="image" src=`${respond.avataUrl || "/image/user_image.jpg"}`)
                 input(name="profile_pic" class="user-image__file" type="file" src=respond.avataUrl required)
                 button 프로필 사진 업데이트
 

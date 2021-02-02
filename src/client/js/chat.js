@@ -16,17 +16,13 @@ socket.on("connect", ()=>{
 // 서버에서 네임스페이스 리스트 받아옴
 socket.on('nsList', (nsData) => {
     const div = document.querySelector(".namespace");
-    div.innerHTML = "<img id='add-namespace' class='img' src='/public/plus.svg' />";
+    div.innerHTML = "<img id='add-namespace' class='img' src='/image/plus.svg' />";
     nsData.forEach(ns=>{
         div.innerHTML += 
-        `<img class="img namespace-img" ns=${ns.endpoint} src="/public/${ns.img}" />
+        `<img class="img namespace-img" ns=${ns.endpoint} src=/image/${ns.img} />
         <div class="nsTitle">${ns.nsTitle}</div>
         `
     })
-
-    // document.getElementById("add-namespace").addEventListener("click",(event)=>{
-        
-    // })
 
     // 클릭하면 네임스페이스에 연결
     Array.from(document.getElementsByClassName('namespace-img')).forEach((elem)=>{

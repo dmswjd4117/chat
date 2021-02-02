@@ -1,4 +1,6 @@
 const PORT = process.env.PORT || 8080;
+import "@babel/polyfill";
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -40,14 +42,9 @@ app.use(sessionMiddleWare);
 */
 
 app.set('view engine', 'pug')
-app.set('views', 'client')
+app.set('views', path.join(__dirname, "../client"))
 
-
-app.use('/public', express.static('client/image')); 
-// app.use('/public', express.static('client/uploads')); 
-app.use('/public', express.static('client//css'));
-app.use('/public', express.static('client/js'));
-app.use('/uploads', express.static('uploads')); 
+app.use(express.static(path.join(__dirname, "../client")));
 
 app.use(morgan("dev"));
 app.use(bodyParser.json()); //json으로 온 요청을 해석
@@ -74,13 +71,13 @@ app.get("/init", async(req, res)=>{
   mongoose.connection.db.dropCollection('messages');
 
   const catNs = await Namespace.create({
-    img : "image1.jpg",
+    img : "backgroud.jpg",
     nsTitle : "CAT",
     endPoint : "/cat"
   })
 
   const Linux = await Namespace.create({
-    img : "image2.jpg",
+    img : "backgroud2.jpg",
     nsTitle : "Linux",
     endPoint : "/linux"
   })

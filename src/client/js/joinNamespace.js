@@ -70,7 +70,7 @@ function initRooms(roomTitle) {
 function makeNode(msg) {
     const node = `
     <div class="user-message">
-        <img src="${msg.avatar || "/public/backgroud2.jpg"}", alt="userimg"></img>
+        <img src="${msg.avatar || "/image/user_image.jpg"}", alt="userimg"></img>
         <div class="container">
             <div class="info">
                 <div class="name"> ${msg.name} </div>
@@ -83,22 +83,6 @@ function makeNode(msg) {
     return node;
 }
 
-function makeHistoryNode(obj) {
-    const { avataUrl , history : msg}  = obj;
-    const node = `
-    <div class="user-message">
-        <img src="${avataUrl}", alt="userimg"></img>
-        <div class="container">
-            <div class="info">
-                <div class="name"> ${msg.name} </div>
-                <div class="time"> ${msg.time} </div>
-            </div>
-            <div class="content"> ${msg.content} </div>
-            <i id="delete" class="far fa-trash-alt"></i>
-    </div>
-    `
-    return node;
-}
 
 function submitForm(event) {
     event.preventDefault();

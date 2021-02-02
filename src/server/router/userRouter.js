@@ -34,9 +34,6 @@ userRouter.post("/password/change", accessPrivate, (req, res)=>{
 })
 
 
-userRouter.get("/login", accessPublic, (req, res)=>{
-    res.render('login')
-})
 
 userRouter.post("/login", accessPublic, 
     passport.authenticate('local'),
@@ -46,16 +43,12 @@ userRouter.post("/login", accessPublic,
     }
 )
 
-userRouter.get("/register", accessPublic, (req, res)=>{
-    res.render('register')
-})
-
 userRouter.post("/register", accessPublic, (req, res)=>{
     const { name, email, password, confirmPassword } = req.body;
 
+    
     if(password != confirmPassword){
-        res.status(400);
-        return res.render('main' ,{ "message" : "비밀번호가 일치하지 않습니다"})
+        return  res.redirect("/")
     }
     
     console.log(name,email )
@@ -63,7 +56,7 @@ userRouter.post("/register", accessPublic, (req, res)=>{
         if(user.length){
             console.log(user)
             res.status(400);
-            return res.render('register' ,{ "message" : "이미 등록된 이메일입니다."})
+            return  res.redirect("/")
         }
         try{
             const user = await User({
@@ -76,7 +69,6 @@ userRouter.post("/register", accessPublic, (req, res)=>{
             console.log(err);
             res.redirect("/user/register")
         }
-        
     })
 
 })

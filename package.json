@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/app.js --exec babel-node ",
-    "dev": "nodemon server/init.js --exec babel-node ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/server/init.js",
+    "dev": "nodemon src/server/init.js --exec babel-node ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:server": "babel src --out-dir build",
+    "prebuild": "rd /s \"build\"",
+    "copyAll" : "xcopy src\\client build\\client /d /e /h /c /y /i",
+    "build" : "npm run copyAll && npm run build:server"
   },
   "author": "",
   "license": "ISC",
