@@ -45,7 +45,7 @@ body{
     height: 300px;
 }
 
-
+/* 유저 사진 컨테이너 */
 
 .user-image-container{
     display: flex;
@@ -83,8 +83,8 @@ button:hover{
 
 .user-info-box{
     width: 600px;
-    height: 300px;
     margin-top: 60px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -94,11 +94,20 @@ button:hover{
 
 .name-contaier, .email-contaier, .password-container{
     width: 80%;
-    height: 70px;
+    min-height: 70px;
     display: flex;
     flex-direction: column;
 }
 
+.name-contaier .title,
+.email-contaier .title,
+.password-container .title{
+    font-size: 20px;
+    color: aliceblue;
+    margin-bottom: 10px;
+}
+
+ /* 이름 */
 .name-contaier .name input{
     width: 300px;
     height: 30px;
@@ -117,26 +126,39 @@ button:hover{
 }
 
 
-.name-contaier .title,
-.email-contaier .title,
-.password-container .title{
-    font-size: 20px;
-    color: aliceblue;
-    margin-bottom: 10px;
-}
 
+/* 이메일 */
 .email-contaier .email{
 
 }
 
+
+/* 패스워드 */
 .password-container{
     width: 80%;
 }
 
+.password-container form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.password-container  input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 30px;
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+}
+
 .password-container button{
     border: 1px solid;
-    width: 200px;
+    width: 150px;
     height: 30px;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
+    margin-bottom: 10px;
 }

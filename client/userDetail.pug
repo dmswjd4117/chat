@@ -14,24 +14,30 @@ html(lang="en")
 
         section(class="user-profile-box")
             form(action="/user/img/upload" method="POST" class="user-image-container" enctype="multipart/form-data")
-                image(class="user-image" type="image" src=`/${respond.avataUrl}`)
+                image(class="user-image" type="image" src=`${respond.avataUrl}`)
                 input(name="profile_pic" class="user-image__file" type="file" src=respond.avataUrl required)
                 button 프로필 사진 업데이트
 
         section(class="user-info-box")
             div(class="name-contaier")
                 label(class="title") 이름
-                div(class="name")
-                    form(action="/user/name/change", method="post")
-                        input(name="name" value=`${respond.name}`) 
-                        button 변경
+                div(class="name") #{respond.name}
+                    //- form(action="/user/name/change", method="post")
+                    //-     input(name="name" value=`${respond.name}`) 
+                    //-     button 변경
 
             div(class="email-contaier")
                 label(class="title") 이메일
                 div(class="email") #{respond.email || "email@google.com"}
 
             div(class="password-container")
-                label(class="title") 비밀번호
-                a(href="/user/password") 
-                    button 비밀번호 변경하기
+                label(class="title") 패스워드
+                form(action="/user/password/change", method="POST")
+                    label 현재 비밀번호
+                    input(type="text" name="password") 
+                    label 새로운 비밀번호
+                    input(type="password"  name="newpassword") 
+                    label 비밀번호 확인
+                    input(type="password"  name="confirmPassword") 
+                    button(type="submit") 비밀번호 변경하기
                     

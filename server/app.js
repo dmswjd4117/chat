@@ -3,13 +3,12 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import path from "path"
 import morgan from "morgan";
 import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
-import { localsMiddleware  , accessPrivate , userInfo }  from "./middlewares";
+import { localsMiddleware  , accessPrivate  }  from "./middlewares";
 import "./db";
 import "./models/User";
 import "./paassport";
@@ -17,7 +16,7 @@ import userRouter from "./router/userRouter";
 import chatRouter from "./router/chatRouter";
 import Room from "./models/Room";
 import Namespace from "./models/Namespace";
-import User from "./models/User";
+
 dotenv.config();
 
 // express 서버

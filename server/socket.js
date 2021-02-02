@@ -31,6 +31,15 @@ io.of("/").on("connection", function(socket) {
 })
 
 
+function convert(data) {
+  return new Promise(resolve=>{
+    User.findById(user._id, (err, res)=>{
+      console.log(data)
+      resolve()
+    })
+  })
+}
+
 Namespace.find({}, (err, namespaces) => {
   namespaces.forEach((namespace)=>{
     // 세션정보 네임스페이스 에서 이용 하게하기
@@ -56,25 +65,11 @@ Namespace.find({}, (err, namespaces) => {
         if(roomName){
           Room.findOne({ "roomTitle" : roomName })
           .populate("history")
-          .exec((err, data)=>{
+          .exec(async(err, data)=>{
             nsSocket.emit('roomHistory',  data.history)
           })
         }
       })
-      /*
-      [{
-        "_id":"60169a3c799fef9944bbdef6",
-        "userID":"6016883adf402f570433cbe1",
-        "name":"dmswjd","content":"kk","time":"2021-01-31T11:53:32.267Z","__v":0
-        }
-        ,
-        {"_id":"60169ad12bcaa88a68094286",
-        "userID":"6016883adf402f570433cbe1","name":"dmswjd"
-        ,"content":"ss"
-        ,"time":"2021-01-31T11:56:01.860Z","__v":0
-        }
-      ] 
-      */
       // 메세지 주고 받기
       nsSocket.on('messageFromClient', async (msg) => {
         const roomName = Array.from(nsSocket.rooms)[1];
