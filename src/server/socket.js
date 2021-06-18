@@ -40,61 +40,65 @@ function convert(data) {
   })
 }
 
-Namespace.find({}, (err, namespaces) => {
-  namespaces.forEach((namespace)=>{
-    // 세션정보 네임스페이스 에서 이용 하게하기
-    io.of(namespace.endPoint).use(sharedsession(sessionMiddleWare));
-
-    // 데이터 배열돌면서 네임스페이스  연결대기 시키기
-    io.of(namespace.endPoint).on("connection", async(nsSocket)=>{
-      const id = nsSocket.handshake.session.passport.user._id;
-      let user = "";
-      await User.findById(id, (err, res)=>{
-        user = res;
-      })
-
-      // 방 종류들 클라이언트에게 보내기
-      nsSocket.emit('nsRoomLoad', namespace.rooms);
-      
-      // 방에 접속하면 문자 내역 전달하기
-      nsSocket.on('joinRoom', (roomToJoin)=>{
-        nsSocket.leave(Array.from(nsSocket.rooms)[1])
-        nsSocket.join(roomToJoin)
-
-        const roomName = Array.from(nsSocket.rooms)[1];
-        if(roomName){
-          Room.findOne({ "roomTitle" : roomName })
-          .populate("history")
-          .exec(async(err, data)=>{
-            nsSocket.emit('roomHistory',  data.history)
+function initSocket() {
+  Namespace.find({}, (err, namespaces) => {
+    namespaces.forEach((namespace)=>{
+      // 세션정보 네임스페이스 에서 이용 하게하기
+      io.of(namespace.endPoint).use(sharedsession(sessionMiddleWare));
+  
+      // 데이터 배열돌면서 네임스페이스  연결대기 시키기
+      io.of(namespace.endPoint).on("connection", async(nsSocket)=>{
+        const id = nsSocket.handshake.session.passport.user._id;
+        let user = "";
+        await User.findById(id, (err, res)=>{
+          user = res;
+        }) 
+  
+        // 방 종류들 클라이언트에게 보내기
+        nsSocket.emit('nsRoomLoad', namespace.rooms);
+        console.log(namespace.rooms)
+        
+        // 방에 접속하면 문자 내역 전달하기
+        nsSocket.on('joinRoom', (roomToJoin)=>{
+          nsSocket.leave(Array.from(nsSocket.rooms)[1])
+          nsSocket.join(roomToJoin)
+  
+          const roomName = Array.from(nsSocket.rooms)[1];
+          if(roomName){
+            Room.findOne({ "roomTitle" : roomName })
+            .populate("history")
+            .exec(async(err, data)=>{
+              nsSocket.emit('roomHistory',  data.history)
+            })
+          }
+        })
+        // 메세지 주고 받기
+        nsSocket.on('messageFromClient', async (msg) => {
+          const roomName = Array.from(nsSocket.rooms)[1];
+  
+          const newMessage = await Messages.create({
+            avatar : user.avataUrl,
+            userID : user._id,
+            name : user.name,
+            content : msg,
           })
-        }
-      })
-      // 메세지 주고 받기
-      nsSocket.on('messageFromClient', async (msg) => {
-        const roomName = Array.from(nsSocket.rooms)[1];
-
-        const newMessage = await Messages.create({
-          avatar : user.avataUrl,
-          userID : user._id,
-          name : user.name,
-          content : msg,
+  
+          Room.findOne({ "roomTitle" : roomName }, (err, roomname)=>{
+            roomname.history.addToSet(newMessage._id);
+            roomname.save();
+          })
+  
+          const convertedMsg = formatMsg({ id : newMessage._id, msg, user});
+        
+          console.log(`${roomName} 에게 ${convertedMsg.content} 보내기`)
+          io.of(namespace.endPoint).to(roomName).emit('messageFromServer', convertedMsg);
         })
-
-        Room.findOne({ "roomTitle" : roomName }, (err, roomname)=>{
-          roomname.history.addToSet(newMessage._id);
-          roomname.save();
-        })
-
-        const convertedMsg = formatMsg({ id : newMessage._id, msg, user});
-      
-        console.log(`${roomName} 에게 ${convertedMsg.content} 보내기`)
-        io.of(namespace.endPoint).to(roomName).emit('messageFromServer', convertedMsg);
+  
       })
-
     })
-  })
-});
+  });
+  
+}
 
 
 function formatMsg({id, msg, user}) {
@@ -108,4 +112,7 @@ function formatMsg({id, msg, user}) {
   return convertedMsg;
 }
 
-console.log("2번")
+
+initSocket()
+
+export { io }

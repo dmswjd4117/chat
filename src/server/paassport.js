@@ -17,7 +17,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 
-// 깃허브 로그인
+// 깃허브 로그인 
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,

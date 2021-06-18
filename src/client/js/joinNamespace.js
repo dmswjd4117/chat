@@ -1,4 +1,5 @@
-function joinNamespace(endpoint) {
+function joinNamespace(endpoint, nsName) {
+    console.log(endpoint, nsName, "입장")
 
     document.querySelector(".msg-form").removeEventListener('submit',submitForm)
     document.querySelector(".msg-form").addEventListener('submit', submitForm)
@@ -7,12 +8,19 @@ function joinNamespace(endpoint) {
         nsSocket.close();
     }
 
-    nsSocket = io(`https://lit-earth-78406.herokuapp.com${endpoint}`);
+    nsSocket = io(`http://localhost:1000${endpoint}`);
 
     // 룸리스트 가져오기
     nsSocket.on('nsRoomLoad', (rooms)=>{
+        console.log(rooms)
         const roomList = document.getElementById("room-list");
-        roomList.innerHTML = "";
+        roomList.innerHTML = `
+        <div>
+            <label>add room </label>
+            <input name="roomName" id="add-roomName" required>
+            <button class="addRoomBtn"> add
+        </div>
+        `
         rooms.forEach((room)=>{
             let locked = false;
             if(room.privateRoom) locked = true;
@@ -23,6 +31,34 @@ function joinNamespace(endpoint) {
               </li>
             `
         })
+
+
+        const addRoomBtn = document.querySelector(".addRoomBtn");
+        addRoomBtn.addEventListener("click", (e)=>{
+            const roomTitle = document.getElementById("add-roomName").value;
+            const namespace = nsName;
+            
+            fetch('/chat/addRoom', {
+                method : 'POST',
+                mode: 'cors',  
+                credentials: 'same-origin',  
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', 
+                referrer: 'no-referrer',  
+                body:  new URLSearchParams({
+                    roomTitle,
+                    namespace
+                })
+            })
+            .then((res)=>(res.json()))
+            .then(res=>{
+                console.log(res)
+            })
+            
+        })
+
 
         //노드리스트를 반환받아, 클릭하면 해당 룸으로 이동하게 하기
         const roomNodes = document.getElementsByClassName('room');

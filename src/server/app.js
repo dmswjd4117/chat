@@ -24,6 +24,7 @@ dotenv.config();
 // express 서버
 const app = express();
 
+
 // 세션
 const mongoStore = MongoStore(session);
 const sessionMiddleWare = session({
@@ -71,32 +72,32 @@ app.get("/init", async(req, res)=>{
   mongoose.connection.db.dropCollection('messages');
 
   const catNs = await Namespace.create({
-    img : "backgroud.jpg",
+    img : "background2.jpg",
     nsTitle : "CAT",
     endPoint : "/cat"
   })
 
   const Linux = await Namespace.create({
-    img : "backgroud2.jpg",
+    img : "background.jpg",
     nsTitle : "Linux",
     endPoint : "/linux"
   })
 
   const catPic = await Room.create({
     roomTitle : "picture",
-    namespace : catNs._id,
+ 
   })
 
   
   const catTalk = await Room.create({
     roomTitle : "talk",
-    namespace : catNs._id,
+ 
   })
 
 
   const redHat = await Room.create({
     roomTitle : "RED HAT",
-    namespace : catNs._id,
+ 
   })
 
   catNs.rooms.push({ "roomTitle" : catPic.roomTitle , "roomID" : catPic._id});

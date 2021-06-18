@@ -7,23 +7,22 @@
     "node": "v12.16.3"
   },
   "scripts": {
-    "prestart": "npm run build", 
+    "prestart": "npm run build",
+    "dev": "nodemon src/server/init.js --exec babel-node",
     "start": "node build/server/init.js",
-
     "prebuild": "rm -rf build && mkdir  build",
     "build": "npm run copyAll && npm run build:server",
-    
     "copy": "shx cp -r src/client build",
-    "copyAll" : "cp -R src/client build",
+    "copyAll": "cp -R src/client build",
     "build:server": "babel src --out-dir build",
-
-    "deletebuild" : "rd /s \"build\"",
-    "dev:build" : " mkdir  build && shx cp -R src/client build && babel src --out-dir build"
+    "deletebuild": "rd /s \"build\"",
+    "dev:build": " mkdir  build && shx cp -R src/client build && babel src --out-dir build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.834.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",

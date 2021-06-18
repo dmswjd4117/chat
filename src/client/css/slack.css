@@ -22,8 +22,33 @@ a{
 }
 
 .main{
+    position: relative;
     display: grid;
     grid-template-columns: 1.4fr 1.5fr 8fr;
+}
+
+.add-spaceroom-box{
+    height: 200px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: antiquewhite;
+    z-index: 1;
+}
+
+.add-spaceroom-box > * {
+    margin: 10px;
+}
+
+.space-name{
+    padding: 20px;
+    height: 45px;
 }
 
 .navbar{

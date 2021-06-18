@@ -7,7 +7,7 @@ const roomSchema = new Schema({
     },
     namespace : {
         type : mongoose.Types.ObjectId,
-        required : true
+        // required : true
     },
     privateRoom : {
         type : Boolean
