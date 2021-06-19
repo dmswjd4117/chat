@@ -18,6 +18,7 @@ import userRouter from "./router/userRouter";
 import chatRouter from "./router/chatRouter";
 import Room from "./models/Room";
 import Namespace from "./models/Namespace";
+import socketio from "socket.io";
 
 dotenv.config();
 
@@ -121,9 +122,11 @@ const expressServer = app.listen(PORT, ()=>{
   console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
-console.log("1번")
+const io = socketio(expressServer);
 
-export { sessionMiddleWare, expressServer }
+ 
+
+export { sessionMiddleWare, expressServer, io }
 
 
 

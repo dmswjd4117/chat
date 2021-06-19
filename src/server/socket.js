@@ -7,10 +7,7 @@ import Room from "./models/Room";
 import Namespace from "./models/Namespace";
 import Messages from "./models/Message";
 import User from "./models/User";
-
-
-// socket 서버
-const io = socketio(expressServer);
+import { io } from "./app.js"
 
 
 // 메인 네임스페이스에 연결되면 네임스페이스 종류 클라이언트에 보내기
@@ -31,15 +28,6 @@ io.of("/").on("connection", function(socket) {
 })
 
 
-function convert(data) {
-  return new Promise(resolve=>{
-    User.findById(user._id, (err, res)=>{
-      console.log(data)
-      resolve()
-    })
-  })
-}
-
 function initSocket() {
   Namespace.find({}, (err, namespaces) => {
     namespaces.forEach((namespace)=>{
@@ -57,6 +45,30 @@ function initSocket() {
         // 방 종류들 클라이언트에게 보내기
         nsSocket.emit('nsRoomLoad', namespace.rooms);
         console.log(namespace.rooms)
+
+        nsSocket.on('addRoom', (object)=>{
+          const { roomTitle, namespace : nsTitle } = object
+          console.log(roomTitle, nsTitle)
+            Room.create({
+              roomTitle,
+            }, (err, room)=>{
+              if(err) return  res.json({ success : false})
+      
+              const newRoom = { roomTitle, roomID : room._id}
+      
+              Namespace.findOneAndUpdate(
+                  {nsTitle : nsTitle}, 
+                  { $push : { rooms : newRoom}},
+                  { new : true, upsert : true},
+                  (err, doc, res)=>{
+                      // console.log(err, doc, res)
+                  }
+              )
+      
+              console.log(nsTitle+'에 '+roomTitle+'방 추가')
+              nsSocket.emit('nsNewRoomLoad', newRoom);
+          })
+        })
         
         // 방에 접속하면 문자 내역 전달하기
         nsSocket.on('joinRoom', (roomToJoin)=>{
@@ -72,6 +84,7 @@ function initSocket() {
             })
           }
         })
+
         // 메세지 주고 받기
         nsSocket.on('messageFromClient', async (msg) => {
           const roomName = Array.from(nsSocket.rooms)[1];
@@ -103,16 +116,16 @@ function initSocket() {
 
 function formatMsg({id, msg, user}) {
   const convertedMsg = {
-    id : id,
+    id : id, 
     content : msg,
     time : moment().format('LLLL'),
     name : user.name,
-    avatar : user.avataUrl || "/public/user_image.jpg"
+    avatar : user.avataUrl || "/image/user_image.jpg"
   }
   return convertedMsg;
 }
 
-
+ 
 initSocket()
 
 export { io }

@@ -2,9 +2,7 @@ import express from "express";
 import Namespace from "../models/Namespace";
 import Room from "../models/Room";
 import socketio from "socket.io";
-import { expressServer } from "../app";
-// import { io } from "../socket";
-
+import { expressServer, io } from "../app";
   
 const chatRouter = express.Router();
 
@@ -20,37 +18,9 @@ chatRouter.post("/addNamespace", (req, res)=>{
         endPoint : `/${name}`,
         img : "background3.jpg"
     })
+    return res.redirect("/chat");
 })
 
-
-chatRouter.post("/addRoom", (req, res)=>{
-    const { roomTitle, namespace : nsTitle } = req.body
-
-    Room.create({
-        roomTitle,
-    }, (err, room)=>{
-        if(err) return  res.json({ success : false})
-
-        const newRoom = { roomTitle, roomID : room._id}
-
-        Namespace.findOneAndUpdate(
-            {nsTitle : nsTitle}, 
-            { $push : { rooms : newRoom}},
-            { new : true, upsert : true},
-            (err, doc, res)=>{
-                // console.log(err, doc, res)
-            }
-        )
- 
-        // io.of(`/${nsTitle}`).on("connection", (nssocket)=>{
-        //     console.log(">")
-        //     nssocket.emit('nsRoomLoad', newRoom);
-        // })
-
-        // initSocket()
-    })
-
-})
 
 
 export default chatRouter;

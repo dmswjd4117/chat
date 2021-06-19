@@ -27,13 +27,30 @@ a{
     grid-template-columns: 1.4fr 1.5fr 8fr;
 }
 
+#popup-hide{
+    display: none;
+}
+
+.popup-close{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.popup-close:hover{
+    transform: scale(1.1);
+}
+
 .add-spaceroom-box{
+    position: relative;
     height: 200px;
     width: 320px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -42,7 +59,14 @@ a{
     z-index: 1;
 }
 
-.add-spaceroom-box > * {
+.add-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-form > * {
     margin: 10px;
 }
 
@@ -214,7 +238,7 @@ a{
 
 .user-message  .container > *{
     margin-left: 20px;
-}
+} 
 
 .user-message .container .info {
     display: flex;

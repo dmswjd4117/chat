@@ -13,10 +13,12 @@ html(lang="en")
         title slack
     body
         section(class="main")
-            form(action="/chat/addNamespace" method="post" class="add-spaceroom-box") 
-                label space name  
-                input(type="text" name="name"  class="space-name" required)  
-                button 방만들기
+            div(id="popup-hide" class="add-spaceroom-box") 
+                button(class="popup-close") X
+                form(action="/chat/addNamespace" method="post" class="add-form") 
+                    label space name  
+                    input(type="text" name="name"  class="space-name" required)  
+                    button 채널 만들기
 
             section(class="namespace")
                 //-   네임스페이스 리스트

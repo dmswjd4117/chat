@@ -12,7 +12,7 @@ function joinNamespace(endpoint, nsName) {
 
     // 룸리스트 가져오기
     nsSocket.on('nsRoomLoad', (rooms)=>{
-        console.log(rooms)
+        console.log('nsRoomLoad')
         const roomList = document.getElementById("room-list");
         roomList.innerHTML = `
         <div>
@@ -21,42 +21,27 @@ function joinNamespace(endpoint, nsName) {
             <button class="addRoomBtn"> add
         </div>
         `
-        rooms.forEach((room)=>{
-            let locked = false;
-            if(room.privateRoom) locked = true;
-            roomList.innerHTML += `
-              <li class="room">
-                <i class="fas fa-globe-asia"></i>
-                <span>${room.roomTitle}</span>
-              </li>
-            `
-        })
-
+        if(rooms){
+            rooms.forEach((room)=>{
+                console.log(room)
+                let locked = false;
+                if(room.privateRoom) locked = true;
+                roomList.innerHTML += `
+                  <li class="room">
+                    <i class="fas fa-globe-asia"></i>
+                    <span>${room.roomTitle}</span>
+                  </li>
+                ` 
+            })  
+        }
+  
 
         const addRoomBtn = document.querySelector(".addRoomBtn");
         addRoomBtn.addEventListener("click", (e)=>{
             const roomTitle = document.getElementById("add-roomName").value;
             const namespace = nsName;
             
-            fetch('/chat/addRoom', {
-                method : 'POST',
-                mode: 'cors',  
-                credentials: 'same-origin',  
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                redirect: 'follow', 
-                referrer: 'no-referrer',  
-                body:  new URLSearchParams({
-                    roomTitle,
-                    namespace
-                })
-            })
-            .then((res)=>(res.json()))
-            .then(res=>{
-                console.log(res)
-            })
-            
+            nsSocket.emit('addRoom', {roomTitle, namespace })
         })
 
 
@@ -70,10 +55,13 @@ function joinNamespace(endpoint, nsName) {
             })
         })
 
-        const topRoomName = document.querySelector(".room").innerText;
-        initRooms(topRoomName)
-        nsSocket.emit('joinRoom', topRoomName);
-    })
+        const topRoom = document.querySelector(".room");
+        if(topRoom){
+            topRoomName = topRoom.innerText;
+            initRooms(topRoomName)
+            nsSocket.emit('joinRoom', topRoomName);
+        }
+    }) 
 
 
     nsSocket.on('messageFromServer', (msg)=>{
@@ -85,11 +73,36 @@ function joinNamespace(endpoint, nsName) {
 
     nsSocket.on('roomHistory', (datas)=>{
         const messages = document.getElementById("contents");
-
+        messages.innerHTML = ""
         datas.forEach(data=>{
             messages.innerHTML += makeNode(data)
         })
     })
+
+    nsSocket.on('nsNewRoomLoad', (room)=>{
+        console.log(room)
+        const {roomID, roomTitle} = room
+
+        const roomList = document.getElementById("room-list");
+                
+        const li = document.createElement("li");
+        const i = document.createElement("i")
+        i.className = "fas fa-globe-asia";
+        const span = document.createElement("span");
+        span.innerText = room.roomTitle;
+        li.appendChild(i)
+        li.appendChild(span)
+        li.addEventListener("click",(event)=>{
+            const roomName = event.target.innerText;
+            initRooms(roomName)
+            nsSocket.emit('joinRoom', roomName);
+        })
+
+        roomList.appendChild(li);
+
+        initRooms(roomTitle)
+        nsSocket.emit('joinRoom', roomTitle);
+    })  
 }
 
 
