@@ -10,9 +10,10 @@ function joinNamespace(endpoint, nsName) {
 
     nsSocket = io(`http://localhost:1000${endpoint}`);
 
+
     // 룸리스트 가져오기
     nsSocket.on('nsRoomLoad', (rooms)=>{
-        console.log('nsRoomLoad')
+        console.table(rooms)
         const roomList = document.getElementById("room-list");
         roomList.innerHTML = `
         <div>
@@ -23,7 +24,6 @@ function joinNamespace(endpoint, nsName) {
         `
         if(rooms){
             rooms.forEach((room)=>{
-                console.log(room)
                 let locked = false;
                 if(room.privateRoom) locked = true;
                 roomList.innerHTML += `
@@ -34,15 +34,14 @@ function joinNamespace(endpoint, nsName) {
                 ` 
             })  
         }
-  
 
         const addRoomBtn = document.querySelector(".addRoomBtn");
         addRoomBtn.addEventListener("click", (e)=>{
             const roomTitle = document.getElementById("add-roomName").value;
             const namespace = nsName;
-            
             nsSocket.emit('addRoom', {roomTitle, namespace })
         })
+
 
 
         //노드리스트를 반환받아, 클릭하면 해당 룸으로 이동하게 하기
@@ -63,6 +62,31 @@ function joinNamespace(endpoint, nsName) {
         }
     }) 
 
+    nsSocket.on('nsNewRoomLoad', (room)=>{
+        console.log(room+" nsNewRoomLoad")
+    
+        const {roomID, roomTitle} = room
+    
+        const roomList = document.getElementById("room-list");
+    
+        const li = document.createElement("li");
+        const i = document.createElement("i")
+        i.className = "fas fa-globe-asia";
+        const span = document.createElement("span");
+        span.innerText = room.roomTitle;
+        li.appendChild(i)
+        li.appendChild(span)
+        li.addEventListener("click",(event)=>{
+            const roomName = event.target.innerText;
+            initRooms(roomName)
+            nsSocket.emit('joinRoom', roomName);
+        })
+    
+        roomList.appendChild(li);
+    
+        initRooms(roomTitle)
+        nsSocket.emit('joinRoom', roomTitle);
+    })  
 
     nsSocket.on('messageFromServer', (msg)=>{
         const parent = document.getElementById("contents");
@@ -78,31 +102,6 @@ function joinNamespace(endpoint, nsName) {
             messages.innerHTML += makeNode(data)
         })
     })
-
-    nsSocket.on('nsNewRoomLoad', (room)=>{
-        console.log(room)
-        const {roomID, roomTitle} = room
-
-        const roomList = document.getElementById("room-list");
-                
-        const li = document.createElement("li");
-        const i = document.createElement("i")
-        i.className = "fas fa-globe-asia";
-        const span = document.createElement("span");
-        span.innerText = room.roomTitle;
-        li.appendChild(i)
-        li.appendChild(span)
-        li.addEventListener("click",(event)=>{
-            const roomName = event.target.innerText;
-            initRooms(roomName)
-            nsSocket.emit('joinRoom', roomName);
-        })
-
-        roomList.appendChild(li);
-
-        initRooms(roomTitle)
-        nsSocket.emit('joinRoom', roomTitle);
-    })  
 }
 
 
@@ -118,7 +117,7 @@ function initRooms(roomTitle) {
 
 function makeNode(msg) {
     const node = `
-    <div class="user-message">
+    <div class="user-message"> 
         <img src="${msg.avatar || "/image/user_image.jpg"}", alt="userimg"></img>
         <div class="container">
             <div class="info">
@@ -142,3 +141,8 @@ function submitForm(event) {
 }
 
 
+
+
+
+// https://stackoverflow.com/questions/48468663/update-sqlite-database-without-restarting-application
+ 

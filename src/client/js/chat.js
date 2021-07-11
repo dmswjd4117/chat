@@ -1,4 +1,4 @@
-const socket = io("/");
+const socket =  io(`http://localhost:1000/`);
 const input = document.getElementById("msg");
 const chatForm = document.getElementById("chat-form");
 const charInput = document.getElementById("#msg")
@@ -6,6 +6,7 @@ const chatMessage = document.querySelector(".chat-messages")
 const body = document.getElementsByTagName("body");
 const addPopup = document.querySelector(".add-spaceroom-box");
 const closePopup = document.querySelector(".popup-close");
+const addSpaceBtn = document.querySelector(".add-spaceroom-btn");
 
 let nsSocket = "";
 
@@ -14,9 +15,13 @@ closePopup.addEventListener("click", (e)=>{
     addPopup.id = "popup-hide";
 })
 
-socket.on("connect", ()=>{
-    // console.log("메인 소켓 연결")
-}) 
+
+addSpaceBtn.addEventListener("click", (event)=>{
+     const nsName = document.querySelector(".space-name-input").value;
+     console.log(nsName)
+     socket.emit('addNs', {nsName})
+})
+
 
 
 // 서버에서 네임스페이스 리스트 받아옴
@@ -54,3 +59,26 @@ socket.on('nsList', (nsData) => {
     joinNamespace(endPoint, nameSpaceName);
 })  
   
+
+socket.on('newNsLoad', (ns)=>{
+    const { nsTitle, endPoint, img} = ns;
+    const div = document.querySelector(".namespace");
+    // div.innerHTML +=  
+
+
+    const img_element = document.createElement("img");
+    img_element.className = "img namespace-img";
+    img_element.src = `/image/${img}`;
+    img_element.addEventListener("click", (event)=>{
+        joinNamespace(endPoint, nsTitle);
+    })
+
+    const name_element = document.createElement("div");
+    name_element.className = "nsTitle";
+    name_element.innerHTML = ns.nsTitle;
+
+    div.append(img_element);
+    div.append(name_element);
+
+    addPopup.id = "popup-hide";
+})
